@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { fetchAllLeagues, fetchSeasonBadge } from '../services/sportsDbApi'
 import type { League, SeasonBadge } from '../types/league'
 
@@ -9,6 +9,8 @@ interface BadgeCacheEntry {
     error: string | null
 }
 
+const PAGE_SIZE = 10
+
 export const useLeaguesStore = defineStore('leagues', () => {
     const leagues = ref<League[]>([])
     const isLoading = ref(false)
@@ -16,6 +18,7 @@ export const useLeaguesStore = defineStore('leagues', () => {
 
     const searchTerm = ref('')
     const selectedSport = ref('')
+    const visibleCount = ref(PAGE_SIZE)
 
     // keyed by league id so repeat clicks on the same league reuse the cached response
     const badgeCache = ref(new Map<string, BadgeCacheEntry>())
@@ -38,6 +41,19 @@ export const useLeaguesStore = defineStore('leagues', () => {
     const activeBadge = computed(() =>
         activeLeagueId.value ? (badgeCache.value.get(activeLeagueId.value) ?? null) : null,
     )
+
+    const visibleLeagues = computed(() => filteredLeagues.value.slice(0, visibleCount.value))
+
+    const hasMoreLeagues = computed(() => visibleCount.value < filteredLeagues.value.length)
+
+    // reset pagination whenever the filters change so newly matching leagues start from the first page
+    watch([searchTerm, selectedSport], () => {
+        visibleCount.value = PAGE_SIZE
+    })
+
+    function loadMoreLeagues() {
+        visibleCount.value += PAGE_SIZE
+    }
 
     async function loadLeagues() {
         isLoading.value = true
@@ -83,6 +99,9 @@ export const useLeaguesStore = defineStore('leagues', () => {
         selectedSport,
         sportOptions,
         filteredLeagues,
+        visibleLeagues,
+        hasMoreLeagues,
+        loadMoreLeagues,
         activeLeagueId,
         activeBadge,
         loadLeagues,
