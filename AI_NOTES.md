@@ -8,8 +8,10 @@
 
 - **Vue 3 + Vite + TypeScript + Pinia + Tailwind CSS v4**, as agreed. No router — this is a single view, so routing would be unnecessary complexity.
 - **Component split**: `SearchBar`, `SportFilterDropdown`, `LeagueList`/`LeagueCard`, `SeasonBadgeModal`. Filter components read/write the Pinia store directly rather than prop-drilling, since the app is small and single-page.
-- **State/caching**: the Pinia store keeps a `Map<leagueId, {loading, data, error}>` for season badges. Clicking a league checks the cache before calling the API, satisfying the "avoid repeat calls" requirement.
+- **State/caching**: the Pinia store keeps a `Map<leagueId, {loading, data, error}>` for season badges. Clicking a league checks the cache before calling the API, satisfying the "avoid repeat calls" requirement. The league list itself is additionally cached in `sessionStorage` (10 minute TTL) so a page reload doesn't re-fire all 11 underlying requests.
 - **Sport dropdown options** are derived from the fetched league data (unique `strSport` values), not hardcoded, so it stays accurate if the dataset changes.
+- **Branding**: colors (`#e41827` red, `#353a45` ink) and the Barlow typeface were pulled from a live inspection of [sportygroup.com](https://www.sportygroup.com/index.html) to match the bookmaker's house style, since this assignment simulates a component from that kind of platform.
+- **PWA**: added `vite-plugin-pwa` for an installable, offline-capable app (manifest + Workbox service worker with a `StaleWhileRevalidate` cache for the TheSportsDB API). This wasn't in the original requirements but reinforces the "avoid repeat calls" theme at the network layer and is a natural fit for a small, static SPA like this.
 
 ## API limitation encountered
 
@@ -20,6 +22,7 @@ To still demonstrate meaningful search + sport filtering (multiple sports, `strL
 ## What I'd do next with more time
 
 - Debounce the search input (currently filters on every keystroke, which is fine at this data size but wouldn't scale).
-- Persist the badge cache to `sessionStorage` so it survives a page reload.
+- Persist the season-badge cache the same way the league list is (sessionStorage), so it survives a page reload too.
 - Add unit tests for the store's filtering logic and the API merge/dedupe logic.
 - Add a small loading skeleton instead of plain "Loading…" text.
+- Design a proper app icon (the current one is a placeholder red square with an "S") and add offline fallback UI for when a first-time visit happens with no network.
