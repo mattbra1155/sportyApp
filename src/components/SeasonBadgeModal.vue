@@ -21,7 +21,7 @@ const league = computed(
         <button
           type="button"
           aria-label="Close"
-          class="rounded-full p-1 text-slate-400 hover:bg-slate-100 hover:text-brand"
+          class="flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-brand"
           @click="store.closeBadge()"
         >
           ✕
