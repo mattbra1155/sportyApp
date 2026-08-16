@@ -15,13 +15,13 @@ const league = computed(
     class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4"
     @click.self="store.closeBadge()"
   >
-    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+    <div class="w-full max-w-md rounded-2xl border-t-4 border-brand bg-white p-6 shadow-xl">
       <div class="mb-4 flex items-start justify-between gap-4">
-        <h2 class="text-lg font-semibold text-slate-900">{{ league?.strLeague }}</h2>
+        <h2 class="text-lg font-bold text-ink">{{ league?.strLeague }}</h2>
         <button
           type="button"
           aria-label="Close"
-          class="rounded-full p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+          class="rounded-full p-1 text-slate-400 hover:bg-slate-100 hover:text-brand"
           @click="store.closeBadge()"
         >
           ✕

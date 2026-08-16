@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand: #e41827;
+  --color-brand-dark: #b3101d;
+  --color-ink: #353a45;
+  --font-sans: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: #fafafa;
+}

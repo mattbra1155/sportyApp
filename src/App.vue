@@ -14,10 +14,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-50">
-    <header class="border-b border-slate-200 bg-white">
+  <div class="min-h-screen bg-[#fafafa]">
+    <header class="border-b-4 border-brand bg-white">
       <div class="mx-auto max-w-6xl px-4 py-6">
-        <h1 class="text-2xl font-bold text-slate-900">Sports Leagues</h1>
+        <h1 class="text-3xl font-extrabold uppercase tracking-tight text-ink">
+          Sports <span class="text-brand">Leagues</span>
+        </h1>
         <p class="text-sm text-slate-500">
           Browse leagues, filter by sport, and view season badges.
         </p>
