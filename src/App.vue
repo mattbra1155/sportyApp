@@ -5,6 +5,7 @@ import SearchBar from './components/SearchBar.vue'
 import SportFilterDropdown from './components/SportFilterDropdown.vue'
 import LeagueList from './components/LeagueList.vue'
 import SeasonBadgeModal from './components/SeasonBadgeModal.vue'
+import ConnectionStatusToast from './components/ConnectionStatusToast.vue'
 
 const store = useLeaguesStore()
 
@@ -38,5 +39,6 @@ onMounted(() => {
     </main>
 
     <SeasonBadgeModal />
+    <ConnectionStatusToast />
   </div>
 </template>

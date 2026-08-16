@@ -12,6 +12,7 @@
 - **Sport dropdown options** are derived from the fetched league data (unique `strSport` values), not hardcoded, so it stays accurate if the dataset changes.
 - **Branding**: colors (`#e41827` red, `#353a45` ink) and the Barlow typeface were pulled from a live inspection of [sportygroup.com](https://www.sportygroup.com/index.html) to match the bookmaker's house style, since this assignment simulates a component from that kind of platform.
 - **PWA**: added `vite-plugin-pwa` for an installable, offline-capable app (manifest + Workbox service worker with a `StaleWhileRevalidate` cache for the TheSportsDB API). This wasn't in the original requirements but reinforces the "avoid repeat calls" theme at the network layer and is a natural fit for a small, static SPA like this.
+- **Connectivity toast**: a small component listens for the browser's `online`/`offline` events and shows a toast. The "back online" toast is intentionally gated behind having seen the "offline" toast first, so a page that's always been online never shows a spurious reconnect message.
 
 ## API limitation encountered
 
