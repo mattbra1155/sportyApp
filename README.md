@@ -21,6 +21,15 @@ npm run preview  # preview the production build
 
 No environment variables or API keys are required — TheSportsDB's public test key `3` is used directly from the browser.
 
+## Run it with Docker
+
+The app is a static SPA, so the image just builds it and serves the output with nginx.
+
+```bash
+docker build -t sporty .
+docker run --rm -p 8080:80 sporty     # http://localhost:8080
+```
+
 ## Architecture
 
 ```
